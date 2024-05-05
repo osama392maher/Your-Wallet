@@ -8,7 +8,7 @@ public class Category
     
     public string Icon { get; set; }
     
-    public CategoryType Type { get; set; }
+    public CategoryType Type { get; set; } = CategoryType.Expense;
 }
 
 public enum CategoryType
