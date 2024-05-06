@@ -126,19 +126,39 @@ body {
 
 .custom-rbt-group label.e-btn {
     box-shadow: none !important;
-    border: 1px solid #fff;
+    border: none #fff;
     background-color: rgb(34 43 51);
     color: #fff;
 }
 
-.e-btn-group.custom-rbt-group input:checked + label.e-btn {
-    background-color: #fff;
-    color: #212b36;
-    border: 1px solid #fff;
+/*.e-btn-group.custom-rbt-group input:checked + label.e-btn {*/
+/*    background-color: #fff;*/
+/*    color: #212b36;*/
+/*    border: 1px solid #fff;*/
+/*}*/
+
+/* Targeting radio buttons with specific IDs */
+#income:checked + label.e-btn {
+    background-color: #198754; /* Change color for expense radio button */
+    color: #fff;
+    /*border: 1px solid #198754; !* Optional: Change border color *!*/
 }
+
+#expense:checked + label.e-btn {
+    background-color: #DC3545; /* Change color for income radio button */
+    color: #fff;
+    /*border: 1px solid #DC3545; !* Optional: Change border color *!*/
+}
+
 
 /*Widget*/
 .widget {
     border-radius: 1rem;
     background-color: #1a222b;
+}
+
+/*BreadCrumb*/
+.e-breadcrumb a, .e-breadcrumb a:hover {
+    text-decoration: none !important;
+    color: inherit !important;
 }

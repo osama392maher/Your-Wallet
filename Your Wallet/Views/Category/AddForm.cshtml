@@ -1,8 +1,7 @@
 @model Category
 
 @{
-    ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["PageTitle"] = Model.Id == 0 ? "Create a new category" : "Edit category";
 }
 
 
@@ -10,16 +9,15 @@
     <div class="col-md-7">
         <div class="widget p-5" style="background-color:#212b36">
             <form asp-action="Create" asp-route-id="@Model.Id">
-
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="mb-3">
                     @* <label asp-for="Type" class="control-label"></label> *@
                     @* <select asp-for="Type" class="form-control" asp-items="Html.GetEnumSelectList<CategoryType>()"></select> *@
                     <div class="e-btn-group custom-rbt-group">
-                        <input type="radio" id="radioleft" name="Type" value="@CategoryType.Expense" checked="(@Model.Type == @CategoryType.Expense)"/>
-                        <label class="e-btn" for="radioleft">@CategoryType.Expense</label>
-                        <input type="radio" id="radioright" name="Type" value="@CategoryType.Income" checked="(@Model.Type == @CategoryType.Income)"/>
-                        <label class="e-btn" for="radioright">@CategoryType.Income</label>
+                        <input type="radio" id="expense"  name="Type" value="@CategoryType.Expense" checked="@(Model.Type == CategoryType.Expense ? true  : false)"/>
+                        <label class="e-btn" for="expense">@CategoryType.Expense</label> <!-- Corrected for attribute -->
+                        <input type="radio" id="income" name="Type" value="@CategoryType.Income" checked="@(Model.Type == CategoryType.Income ? true : false)"/>
+                        <label class="e-btn" for="income">@CategoryType.Income</label> <!-- Corrected for attribute -->
                     </div>
                     <div class="mb-3">
                         @* <label asp-for="Title" class="control-label"></label> *@
@@ -56,3 +54,4 @@
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
+
