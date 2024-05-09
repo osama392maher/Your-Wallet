@@ -25,31 +25,13 @@ namespace Your_Wallet.Controllers
             var mainContext = _context.Transactions.Include(t => t.Category);
             return View(await mainContext.ToListAsync());
         }
-
-        // GET: Transaction/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var transaction = await _context.Transactions
-                .Include(t => t.Category)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (transaction == null)
-            {
-                return NotFound();
-            }
-
-            return View(transaction);
-        }
-
+        
+        
         // GET: Transaction/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
-            return View();
+            ViewBag.Categories = _context.Categories.ToList();
+            return View("AddForm", new Transaction());
         }
 
         // POST: Transaction/Create
@@ -61,12 +43,32 @@ namespace Your_Wallet.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(transaction);
+                
+                if (transaction.Id == 0)
+                    _context.Add(transaction);
+                else
+                {
+                    try
+                    {
+                        _context.Update(transaction);
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!TransactionExists(transaction.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", transaction.CategoryId);
-            return View(transaction);
+            ViewBag.Categories = _context.Categories.ToList();
+            return View("AddForm", new Transaction());
         }
 
         // GET: Transaction/Edit/5
@@ -82,8 +84,8 @@ namespace Your_Wallet.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", transaction.CategoryId);
-            return View(transaction);
+            ViewBag.Categories = _context.Categories.ToList();
+            return View("AddForm",transaction);
         }
 
         // POST: Transaction/Edit/5
@@ -121,26 +123,7 @@ namespace Your_Wallet.Controllers
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", transaction.CategoryId);
             return View(transaction);
         }
-
-        // GET: Transaction/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var transaction = await _context.Transactions
-                .Include(t => t.Category)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (transaction == null)
-            {
-                return NotFound();
-            }
-
-            return View(transaction);
-        }
-
+        
         // POST: Transaction/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

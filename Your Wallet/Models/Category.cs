@@ -16,6 +16,8 @@ public class Category
     public CategoryType Type { get; set; } = CategoryType.Expense;
 
     [NotMapped] public string TitleDisplay => $"{Icon} {Title}";
+    
+ 
 }
 
 public enum CategoryType
