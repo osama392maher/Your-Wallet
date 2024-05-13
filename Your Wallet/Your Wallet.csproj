@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
@@ -7,29 +7,31 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.4"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.4"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2"/>
-        <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="25.1.42"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+        <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="25.1.42" />
     </ItemGroup>
 
     <ItemGroup>
-        <_ContentIncludedByDefault Remove="Views\Categorty\Create.cshtml"/>
-        <_ContentIncludedByDefault Remove="Views\Categorty\Delete.cshtml"/>
-        <_ContentIncludedByDefault Remove="Views\Categorty\Details.cshtml"/>
-        <_ContentIncludedByDefault Remove="Views\Categorty\Edit.cshtml"/>
-        <_ContentIncludedByDefault Remove="Views\Categorty\Index.cshtml"/>
-        <_ContentIncludedByDefault Remove="Views\Category\Create.cshtml"/>
-        <_ContentIncludedByDefault Remove="Views\Category\Delete.cshtml"/>
-        <_ContentIncludedByDefault Remove="Views\Category\Details.cshtml"/>
-        <_ContentIncludedByDefault Remove="Views\Category\Edit.cshtml"/>
-        <_ContentIncludedByDefault Remove="Views\Category\Index.cshtml"/>
+        <_ContentIncludedByDefault Remove="Views\Categorty\Create.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Categorty\Delete.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Categorty\Details.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Categorty\Edit.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Categorty\Index.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Category\Create.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Category\Delete.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Category\Details.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Category\Edit.cshtml" />
+        <_ContentIncludedByDefault Remove="Views\Category\Index.cshtml" />
         <_ContentIncludedByDefault Remove="Views\Cat1\Create.cshtml" />
         <_ContentIncludedByDefault Remove="Views\Cat1\Delete.cshtml" />
         <_ContentIncludedByDefault Remove="Views\Cat1\Details.cshtml" />

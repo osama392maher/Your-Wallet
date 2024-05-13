@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Syncfusion.Licensing;
 using Your_Wallet.Models.Data;
+using Microsoft.AspNetCore.Identity;
+using Your_Wallet.Areas.Identity.Data;
 
 namespace Your_Wallet;
 
@@ -13,11 +15,15 @@ public class Program
         // Add services to the container.
         builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
+        builder.Services.AddRazorPages();
+
         SyncfusionLicenseProvider.RegisterLicense(builder.Configuration["SyncfusionLicenseKey"]);
 
 
         builder.Services.AddDbContext<MainContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+        builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MainContext>();
 
         var app = builder.Build();
 
@@ -38,7 +44,9 @@ public class Program
 
         app.MapControllerRoute(
             "default",
-            "{controller=Home}/{action=Index}/{id?}");
+            "{controller=Dashboard}/{action=Index}/{id?}");
+
+        app.MapRazorPages();
 
         app.Run();
     }

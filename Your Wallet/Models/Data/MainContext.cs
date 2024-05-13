@@ -1,9 +1,11 @@
 using System.Reflection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Your_Wallet.Areas.Identity.Data;
 
 namespace Your_Wallet.Models.Data;
 
-public class MainContext : DbContext
+public class MainContext : IdentityDbContext<ApplicationUser>
 {
     public MainContext(DbContextOptions<MainContext> options) : base(options)
     {
@@ -14,6 +16,7 @@ public class MainContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         // from assembly Expense_Tracker.Models
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 

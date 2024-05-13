@@ -29,6 +29,27 @@ body {
     background-color: #12161D;
     /*background-color: #343a40;*/
     color: white;
+    overflow: hidden;
+}
+
+/*SideBar*/
+#sidebar {
+    background-color: #12161d;
+    border-right: 1px dashed rgba(75,82,85,0.24);
+    padding: 10px 20px;
+    overflow: hidden;
+}
+
+
+
+.e-bigger {
+    font-size: x-large;
+}
+
+.main-content {
+    margin-left: 290px;
+    overflow-y: auto;
+    height: 92vh;
 }
 
 /*Button*/
