@@ -60,7 +60,7 @@ public class CategoryController : Controller
     {
         var user = await _userManager.GetUserAsync(User);
 
-        if (ModelState.IsValid)
+         if (ModelState.IsValid)
         {
 
             var category = (Category)categoryVm;

@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Your_Wallet.Areas.Identity.Data;
 using Your_Wallet.Models;
 using Your_Wallet.Models.Data;
+using Your_Wallet.Models.ViewModels;
 
 namespace Your_Wallet.Controllers
 {
@@ -35,8 +36,12 @@ namespace Your_Wallet.Controllers
                 return RedirectToAction("AdditionalInfo", "Account");
             }
 
-            var mainContext = _context.Transactions.Include(t => t.Category);
-            return View(await mainContext.ToListAsync());
+            var transactions = await _context.Transactions
+                .Where(t => t.ApplicationUserId == user.Id)
+                .Include(t => t.Category)
+                .ToListAsync();
+
+            return View(transactions);
         }
         
         
@@ -50,8 +55,10 @@ namespace Your_Wallet.Controllers
                 return RedirectToAction("AdditionalInfo", "Account");
             }
 
-            ViewBag.Categories = _context.Categories.ToList();
-            return View("AddForm", new Transaction());
+            ViewBag.Categories = _context.Categories
+                .Where(c => c.ApplicationUserId == user.Id)
+                .ToList();
+            return View("AddForm", new  TransactionViewModel());
         }
 
         // POST: Transaction/Create
@@ -59,10 +66,15 @@ namespace Your_Wallet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Amount,Date,Note,CategoryId")] Transaction transaction)
+        public async Task<IActionResult> Create([Bind("Id,Amount,Date,Note,CategoryId")] TransactionViewModel transactionVM)
         {
             if (ModelState.IsValid)
             {
+
+                var transaction = (Transaction)transactionVM;
+
+                var user = await _userManager.GetUserAsync(User);
+                transaction.ApplicationUserId = user.Id;
                 
                 if (transaction.Id == 0)
                     _context.Add(transaction);
@@ -88,7 +100,7 @@ namespace Your_Wallet.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewBag.Categories = _context.Categories.ToList();
-            return View("AddForm", new Transaction());
+            return View("AddForm", new TransactionViewModel());
         }
 
         // GET: Transaction/Edit/5
@@ -112,7 +124,9 @@ namespace Your_Wallet.Controllers
                 return NotFound();
             }
             ViewBag.Categories = _context.Categories.ToList();
-            return View("AddForm",transaction);
+
+            var transactionVm = (TransactionViewModel)transaction;
+            return View("AddForm",transactionVm);
         }
 
         // POST: Transaction/Edit/5
@@ -120,8 +134,13 @@ namespace Your_Wallet.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Amount,Date,Note,CategoryId")] Transaction transaction)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Amount,Date,Note,CategoryId")] TransactionViewModel transactionVm)
         {
+            var user = await _userManager.GetUserAsync(User);
+
+            var transaction = (Transaction)transactionVm;
+            transaction.ApplicationUserId = user.Id;
+
             if (id != transaction.Id)
             {
                 return NotFound();
@@ -148,7 +167,7 @@ namespace Your_Wallet.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", transaction.CategoryId);
-            return View(transaction);
+            return View(transactionVm);
         }
         
         // POST: Transaction/Delete/5
