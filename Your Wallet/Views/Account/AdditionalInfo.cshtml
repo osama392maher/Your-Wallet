@@ -1,0 +1,72 @@
+﻿@model AdditionalInfoModel
+@{
+    ViewData["Title"] = "Additional Information";
+
+}
+
+<form method="post" enctype="multipart/form-data" asp-action="AdditionalInfo">
+
+@*     <div class="form-group text-center">
+        <label asp-for="Image" class="form-label">Profile Picture</label>
+        <div class="profile-picture-wrapper">
+            <input asp-for="Image" class="form-control-file custom-file-input" />*
+
+            <input asp-for="Image" class="form-control-file" />
+
+        </div>
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div> *@
+
+    <div id="welcome-message">
+        👋 Hi <span class="name-input-container">
+            <input asp-for="Name" class="name-input" placeholder="Your Name" maxlength="50" />
+        </span> Welcome to Your Wallet.
+    </div>
+    <div class="mirror"></div>
+    <span asp-validation-for="Name" class="text-danger"></span>
+    <br />
+    <br />
+
+
+    <div class="form-group text-center mt-4">
+        <span>How much do you have in your wallet right now ?!</span>
+        <input asp-for="StartingBalance" class="form-control starting-balance-input" />
+        <span asp-validation-for="StartingBalance" class="text-danger"></span>
+    </div>
+
+    <div class="text-center mt-4">
+        <button type="submit" class="btn submit-button">Submit</button>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        // await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        const input = document.querySelector('.name-input');
+        const mirror = document.createElement('div');
+        mirror.style.position = 'absolute';
+        mirror.style.visibility = 'hidden';
+        mirror.style.whiteSpace = 'pre';
+        mirror.style.fontFamily = 'Arial, sans-serif';
+        mirror.style.fontSize = 'x-large';
+        mirror.style.textAlign = 'center';
+        mirror.style.textDecoration = 'underline';
+        mirror.style.textDecorationStyle = 'dashed';
+        document.body.appendChild(mirror);
+
+        function updateWidth() {
+            mirror.textContent = input.value || input.placeholder;
+            var w = mirror.scrollWidth + 10;
+            input.style.width = `${w}px`;
+        }
+
+        input.addEventListener('input', updateWidth);
+
+        // Trigger input event to set initial width based on placeholder
+        updateWidth();
+
+    </script>
+}

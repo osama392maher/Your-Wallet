@@ -3,6 +3,8 @@ using Syncfusion.Licensing;
 using Your_Wallet.Models.Data;
 using Microsoft.AspNetCore.Identity;
 using Your_Wallet.Areas.Identity.Data;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace Your_Wallet;
 
@@ -15,15 +17,20 @@ public class Program
         // Add services to the container.
         builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-        builder.Services.AddRazorPages();
 
         SyncfusionLicenseProvider.RegisterLicense(builder.Configuration["SyncfusionLicenseKey"]);
 
+        JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+        {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        };
 
         builder.Services.AddDbContext<MainContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-        builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MainContext>();
+        //builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MainContext>();
+
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MainContext>();
 
         var app = builder.Build();
 
@@ -45,9 +52,7 @@ public class Program
         app.MapControllerRoute(
             "default",
             "{controller=Dashboard}/{action=Index}/{id?}");
-
-        app.MapRazorPages();
-
+    
         app.Run();
     }
 }

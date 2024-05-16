@@ -2,34 +2,54 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Your_Wallet.Areas.Identity.Data;
 using Your_Wallet.Models;
 using Your_Wallet.Models.Data;
 
 namespace Your_Wallet.Controllers
 {
+    [Authorize]
     public class TransactionController : Controller
     {
         private readonly MainContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TransactionController(MainContext context)
+        public TransactionController(MainContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Transaction
         public async Task<IActionResult> Index()
         {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (!user.NameSet)
+            {
+                return RedirectToAction("AdditionalInfo", "Account");
+            }
+
             var mainContext = _context.Transactions.Include(t => t.Category);
             return View(await mainContext.ToListAsync());
         }
         
         
         // GET: Transaction/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAsync()
         {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (!user.NameSet)
+            {
+                return RedirectToAction("AdditionalInfo", "Account");
+            }
+
             ViewBag.Categories = _context.Categories.ToList();
             return View("AddForm", new Transaction());
         }
@@ -74,6 +94,13 @@ namespace Your_Wallet.Controllers
         // GET: Transaction/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (!user.NameSet)
+            {
+                return RedirectToAction("AdditionalInfo", "Account");
+            }
+
             if (id == null)
             {
                 return NotFound();

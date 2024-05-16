@@ -1,6 +1,10 @@
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
+using Your_Wallet.Areas.Identity.Data;
+using Your_Wallet.Models.ViewModels;
 
 namespace Your_Wallet.Models;
 
@@ -16,8 +20,22 @@ public class Category
     public CategoryType Type { get; set; } = CategoryType.Expense;
 
     [NotMapped] public string TitleDisplay => $"{Icon} {Title}";
-    
- 
+
+    public string ApplicationUserId { get; set; } // Foreign key for the ApplicationUser
+    public ApplicationUser? ApplicationUser { get; set; } // Navigation property for the ApplicationUser
+    public virtual ICollection<Transaction> Transactions { get; set; }
+
+    public static explicit operator CategoryViewModel(Category category)
+    {
+        return new CategoryViewModel
+        {
+            Id = category.Id,
+            Title = category.Title,
+            Icon = category.Icon,
+            Type = category.Type
+        };
+    }
+
 }
 
 public enum CategoryType

@@ -15,11 +15,30 @@ html {
 html {
     position: relative;
     min-height: 100%;
-    font-family: "Inter", serif
+    font-family: Roboto,sans-serif;
 }
 
 *:not(.fa-solid):not(.fa):not(.e-icons) {
     font-family: "Inter", serif
+}
+.card {
+    background-color: #12161D;
+    color: white;
+    overflow: hidden;
+
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #1a222b;
+    color: white;
+    box-shadow: none !important;
+    border: none #fff;
+    background-color: rgb(34 43 51);
+    color: #fff;
+}
+
+.nav-tabs .nav-link:hover {
+    border: none;
 }
 
 
@@ -42,9 +61,9 @@ body {
 
 
 
-.e-bigger {
+/*.e-bigger {
     font-size: x-large;
-}
+}*/
 
 .main-content {
     margin-left: 290px;
@@ -183,3 +202,204 @@ body {
     text-decoration: none !important;
     color: inherit !important;
 }
+
+
+/*tab navigation*/
+.login-logout-card .card-header {
+    padding: 0px 0px 12px 0px;
+}
+
+.login-logout-card ul.nav-tabs {
+    margin: 0px 0px -12px 0px;
+}
+
+.login-logout-card li.nav-item {
+    width: 50%;
+}
+
+.login-logout-card a.nav-link {
+    font-size: 1rem;
+    color: #495057;
+    text-align: center;
+    padding: 1rem;
+}
+
+.login-logout-card .card-body {
+    padding: 10px 20px;
+}
+
+
+/* Dark theme for inputs */
+input, textarea, select, .form-control {
+    background-color: #1a222b;
+    color: white;
+    border: 1px solid #444;
+}
+
+    input::placeholder, textarea::placeholder {
+        color: #adb5bd;
+    }
+
+    input:focus, textarea:focus, select:focus, .form-control:focus {
+        background-color: #1a222b;
+        color: white;
+        border-color: #258cfb;
+        box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    }
+
+    input[type="checkbox"]:focus, input[type="radio"]:focus {
+        box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    }
+
+    input[type="checkbox"], input[type="radio"] {
+        accent-color: #258cfb;
+    }
+
+/* Adjustments for specific inputs if needed */
+.form-check-input {
+    background-color: #1a222b;
+    border: 1px solid #444;
+}
+
+    .form-check-input:checked {
+        background-color: #258cfb;
+        border-color: #258cfb;
+    }
+
+    .form-check-input:focus {
+        box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    }
+
+#welcome-message {
+    font-family: Arial, sans-serif;
+    font-size: x-large;
+    margin-top: 20px;
+    text-align: center;
+    width : 100%;
+}
+
+.name-input {
+    box-shadow: none;
+    padding: 0;
+    margin: auto;
+    border: none;
+    outline: none;
+    font-size: x-large;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    background-color: #12161D; /* Match background color */
+    color: white;
+}
+    .name-input::placeholder {
+        font-family: Arial, sans-serif;
+        font-size: x-large;
+    }
+
+
+    .name-input:focus {
+        box-shadow: none;
+        padding: 0;
+        margin: auto;
+        border: none;
+        outline: none;
+        font-size: x-large;
+        text-align: center;
+        text-decoration: underline;
+        text-decoration-style: dashed;
+        background-color: #12161D; /* Match background color */
+        color: white;
+    }
+
+.name-input-container {
+    display: inline-block;
+}
+
+.mirror {
+    position: absolute;
+    visibility: hidden;
+    white-space: pre;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+}
+/*
+.profile-picture-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+}
+
+    .profile-picture-wrapper input[type="file"] {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+    }
+
+    .profile-picture-wrapper::before {
+        content: 'Choose File';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #12161D;
+        color: white;
+        border: 2px dashed #258cfb;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        cursor: pointer;
+    }*/
+
+.form-label {
+    color: white;
+    font-size: 16px;
+}
+
+body {
+    background-color: #12161D;
+    color: white;
+}
+
+.btn-primary {
+    background-color: #258cfb;
+    border: none;
+}
+
+.starting-balance-input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    text-align: center;
+    background-color: #12161D; /* Match background color */
+    color: white;
+    padding: 10px;
+    width: 200px; /* Adjust width as needed */
+    border-radius: 5px; /* Add border-radius for rounded corners */
+    margin: 0 auto; /* Center horizontally */
+    display: block; /* Ensure it takes full width */
+}
+
+.submit-button {
+    background-color: #258cfb; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove button border */
+    padding: 10px 20px; /* Add padding */
+    font-size: 16px; /* Button text size */
+    border-radius: 5px; /* Add border-radius for rounded corners */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s ease; /* Add transition effect */
+}
+
+    .submit-button:hover {
+        background-color: #1976d2; /* Change background color on hover */
+    }
+

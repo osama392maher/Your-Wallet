@@ -21,5 +21,17 @@ public class MainContext : IdentityDbContext<ApplicationUser>
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         modelBuilder.Entity<Category>().Property(c => c.Type).HasConversion<string>();
+
+        modelBuilder.Entity<ApplicationUser>()
+            .HasMany(u => u.Categories)
+            .WithOne(c => c.ApplicationUser)
+            .OnDelete(DeleteBehavior.Cascade); // Cascade delete for categories
+
+
+        modelBuilder.Entity<Category>()
+            .HasMany(c => c.Transactions)
+            .WithOne(t => t.Category)
+            .OnDelete(DeleteBehavior.Cascade); // Cascade delete for transactions related to categories
+
     }
 }
