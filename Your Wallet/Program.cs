@@ -32,6 +32,8 @@ public class Program
 
         builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MainContext>();
 
+
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

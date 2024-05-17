@@ -67,7 +67,7 @@ namespace Your_Wallet.Controllers
                         return RedirectToAction("AdditionalInfo");
                     }
                     // Redirect to some other page if needed
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                 return View(model);
@@ -110,7 +110,7 @@ namespace Your_Wallet.Controllers
                     if (result.Succeeded)
                     {
                         // Redirect to some other page if needed
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Dashboard");
                     }
                     foreach (var error in result.Errors)
                     {
@@ -131,7 +131,7 @@ namespace Your_Wallet.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Dashboard");
         }
     }
 }

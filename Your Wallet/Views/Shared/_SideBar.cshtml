@@ -1,9 +1,114 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
 @{
+    var user = await UserManager.GetUserAsync(User);
+    var profilePicture = user.ProfilePicture;
+    var Name = user.Name;
+
+    List<Object> menuItems = new List<Object>();
+
+    menuItems.Add(new
+    {
+        text = "General",
+        separator = true,
+    });
+    menuItems.Add(new
+    {
+        text = "Dashboard",
+        url = "/",
+        iconCss = "fa-solid fa-box",
+    });
+    menuItems.Add(new
+    {
+        text = "Categories",
+        url = "/Category",
+        iconCss = "fa-solid fa-folder-closed",
+    });
+    menuItems.Add(new
+    {
+        text = "Transactions",
+        iconCss = "fa-solid fa-arrow-right-arrow-left",
+        url = "/Transaction"
+    });
+
+    menuItems.Add(new
+    {
+        text = "Account",
+        separator = true,
+    });
+
+    menuItems.Add(new
+    {
+        text = "Logout",
+        url = "/Account/Logout",
+        iconCss = "fa-solid fa-door-open",
+        id = "logoutSideBar"
+
+    });
 }
 
-<ejs-sidebar id="sidebar" width="290px" >
-    
+<ejs-sidebar id="sidebar" width="290px" enableDock dockSize="100px"
+             target=".dock-target" enableGestures="false">
+    <e-content-template>
+
+
+        <div class="profile-wrapper">
+            <img class="profile-pic" src="~/Files/profilePictures/@profilePicture" />
+            <div class="titles d-flex flex-column ps-3">
+                <h6 class="mb-0">@Name</h6>
+                <span class="text-muted"><i class="fa-solid fa-star"></i> Premuim User</span>
+            </div>
+
+        </div>
+
+
+
+        <ejs-menu id="menu"
+            items="menuItems"
+            orientation="Vertical"
+            hamburgerMode></ejs-menu>
+
+        </e-content-template>
 </ejs-sidebar>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get the anchor tag inside the li element with ID "logoutSideBar"
+        var logoutAnchor = document.querySelector("#logoutSideBar > a.e-menu-url");
+
+        // Add an event listener to the anchor tag
+        logoutAnchor.addEventListener("click", function (event) {
+            // Prevent the default behavior of the anchor tag
+            event.preventDefault();
+
+            // Call the logout function
+            logout();
+        });
+    });
+
+    function logout() {
+        // Create a form element
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/Account/Logout';
+
+        // Add anti-forgery token if needed
+        var token = document.querySelector('input[name="__RequestVerificationToken"]');
+        if (token) {
+            var hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = token.name;
+            hiddenInput.value = token.value;
+            form.appendChild(hiddenInput);
+        }
+
+        // Append the form to the body and submit it
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+</script>

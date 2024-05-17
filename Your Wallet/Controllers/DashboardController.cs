@@ -10,12 +10,15 @@ namespace Your_Wallet.Controllers
     public class DashboardController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly MainContext _context;
 
         // GET: Dashboard
-        public DashboardController(UserManager<ApplicationUser> userManager)
+        public DashboardController(UserManager<ApplicationUser> userManager, MainContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
+
         public async Task<IActionResult> IndexAsync()
         {
 
@@ -26,7 +29,10 @@ namespace Your_Wallet.Controllers
                 return RedirectToAction("AdditionalInfo", "Account");
             }
 
-            ViewBag.UserName = User.Identity.Name;
+
+            //Total Income
+
+            ViewBag.pic = user.ProfilePicture;
             return View();
         }
     }

@@ -16,8 +16,11 @@
 
 </head>
 <body class = "e-bigger">
-    <partial name="_SideBar" />
-<header>
+    @if (ViewData["isAccount"] == null)
+    {
+        <partial name="_SideBar" />
+    }
+@* <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Your Wallet</a>
@@ -38,7 +41,7 @@
         </div>
     </nav>
 </header>
-
+ *@
 <div class="main-content">
     <div class="container mt-5">
         <div class="row justify-content-center">
