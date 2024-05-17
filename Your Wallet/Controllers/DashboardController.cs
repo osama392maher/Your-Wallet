@@ -76,8 +76,71 @@ namespace Your_Wallet.Controllers
             ViewBag.Expenses = Expenses;
 
 
+            //Spline Chart - Income vs Expense
+
+            //Income
+            List<SplineChartData> IncomeSummary = Transactions
+                .Where(x => x.Category.Type == CategoryType.Income)
+                .GroupBy(j => j.Date)
+                .Select(k => new SplineChartData()
+                {
+                    day = k.First().Date.ToString("dd-MMM"),
+                    income = k.Sum(l => l.Amount)
+                })
+                .ToList();
+
+            //Expense
+            List<SplineChartData> ExpenseSummary = Transactions
+                .Where(x => x.Category.Type == CategoryType.Expense)
+                .GroupBy(j => j.Date)
+                .Select(k => new SplineChartData()
+                {
+                    day = k.First().Date.ToString("dd-MMM"),
+                    expense = k.Sum(l => l.Amount)
+                })
+                .ToList();
+
+            //Last 7 Days
+            DateTime StartDate = DateTime.Today.AddDays(-6);
+
+            //Combine Income & Expense
+            string[] Last7Days = Enumerable.Range(0, 7)
+                .Select(i => StartDate.AddDays(i).ToString("dd-MMM"))
+                .ToArray();
+
+            ViewBag.SplineChartData = from day in Last7Days
+                                      join income in IncomeSummary on day equals income.day into dayIncomeJoined
+                                      from income in dayIncomeJoined.DefaultIfEmpty()
+                                      join expense in ExpenseSummary on day equals expense.day into expenseJoined
+                                      from expense in expenseJoined.DefaultIfEmpty()
+                                      select new
+                                      {
+                                          day = day,
+                                          income = income == null ? 0 : income.income,
+                                          expense = expense == null ? 0 : expense.expense,
+                                      };
+
+
+
+            //Recent Transactions
+            ViewBag.RecentTransactions = Transactions
+                .OrderByDescending(j => j.Date)
+                .Take(5);
+            
+
+
 
             return View();
         }
     }
+
+    public class SplineChartData
+    {
+        public string day;
+        public decimal income;
+        public decimal expense;
+
+    }
+
 }
+
