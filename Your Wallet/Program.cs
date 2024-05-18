@@ -6,6 +6,7 @@ using Your_Wallet.Areas.Identity.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
+using Your_Wallet.Models.Data.DataSeed;
 
 namespace Your_Wallet;
 
@@ -60,6 +61,8 @@ public class Program
             var logger = loggerFactory.CreateLogger<Program>();
             logger.LogError(ex, "An error occurred during migration");
         }
+
+        Seeding.SeedCategories(context);
 
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())

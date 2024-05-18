@@ -1,0 +1,62 @@
+[
+  {
+    "Title": "Groceries",
+    "Icon": "🛒",
+    "Type": "Expense",
+    "ApplicationUserId": null
+  },
+  {
+    "Title": "Salary",
+    "Icon": "💼",
+    "Type": "Income",
+    "ApplicationUserId": null
+  },
+  {
+    "Title": "Entertainment",
+    "Icon": "🎬",
+    "Type": "Expense",
+    "ApplicationUserId": null
+  },
+  {
+    "Title": "Utilities",
+    "Icon": "💡",
+    "Type": "Expense",
+    "ApplicationUserId": null
+  },
+  {
+    "Title": "Dining Out",
+    "Icon": "🍽️",
+    "Type": "Expense",
+    "ApplicationUserId": null
+  },
+  {
+    "Title": "Investment",
+    "Icon": "📈",
+    "Type": "Income",
+    "ApplicationUserId": null
+  },
+  {
+    "Title": "Rent",
+    "Icon": "🏠",
+    "Type": "Expense",
+    "ApplicationUserId": null
+  },
+  {
+    "Title": "Travel",
+    "Icon": "✈️",
+    "Type": "Expense",
+    "ApplicationUserId": null
+  },
+  {
+    "Title": "Health",
+    "Icon": "🏥",
+    "Type": "Expense",
+    "ApplicationUserId": null
+  },
+  {
+    "Title": "Freelancing",
+    "Icon": "💻",
+    "Type": "Income",
+    "ApplicationUserId": null
+  }
+]

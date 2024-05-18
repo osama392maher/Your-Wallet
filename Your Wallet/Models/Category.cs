@@ -21,7 +21,7 @@ public class Category
 
     [NotMapped] public string TitleDisplay => $"{Icon} {Title}";
 
-    public string ApplicationUserId { get; set; } // Foreign key for the ApplicationUser
+    public string? ApplicationUserId { get; set; } // Foreign key for the ApplicationUser
     public ApplicationUser? ApplicationUser { get; set; } // Navigation property for the ApplicationUser
     public virtual ICollection<Transaction> Transactions { get; set; }
 

@@ -56,7 +56,7 @@ namespace Your_Wallet.Controllers
             }
 
             ViewBag.Categories = _context.Categories
-                .Where(c => c.ApplicationUserId == user.Id)
+                .Where(c => c.ApplicationUserId == user.Id || c.ApplicationUserId == null)
                 .ToList();
             return View("AddForm", new  TransactionViewModel());
         }
