@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Your_Wallet.Areas.Identity.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
 
 namespace Your_Wallet;
 
@@ -26,15 +27,39 @@ public class Program
         };
 
         builder.Services.AddDbContext<MainContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection")));
 
-        //builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MainContext>();
+        //builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
 
-        builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MainContext>();
+        builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+        {
+            options.Password.RequireDigit = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequiredLength = 6;
+        }).AddEntityFrameworkStores<MainContext>();
+
 
 
 
         var app = builder.Build();
+
+        using var scope = app.Services.CreateScope();
+        var services = scope.ServiceProvider;
+
+        var context = services.GetRequiredService<MainContext>();
+        var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+
+        try
+        {
+            context.Database.Migrate();
+        }
+        catch (Exception ex)
+        {
+            var logger = loggerFactory.CreateLogger<Program>();
+            logger.LogError(ex, "An error occurred during migration");
+        }
 
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())

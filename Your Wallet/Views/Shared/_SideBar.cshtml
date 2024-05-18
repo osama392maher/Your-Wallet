@@ -52,7 +52,10 @@
 <ejs-sidebar id="sidebar" width="290px" enableDock dockSize="100px"
              target=".dock-target" enableGestures="false">
     <e-content-template>
-
+        <div class="logo-wrapper">
+            <div class="w-100"></div>
+            <i id="sidebar-toggler" class="fa-solid"></i>
+        </div>
 
         <div class="profile-wrapper">
             <img class="profile-pic" src="~/Files/profilePictures/@profilePicture" />
@@ -60,7 +63,6 @@
                 <h6 class="mb-0">@Name</h6>
                 <span class="text-muted"><i class="fa-solid fa-star"></i> Premuim User</span>
             </div>
-
         </div>
 
 
@@ -110,5 +112,13 @@
         document.body.appendChild(form);
         form.submit();
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        dockBar = document.getElementById('sidebar').ej2_instances[0];
+        document.getElementById('sidebar-toggler').onclick = function () {
+            dockBar.toggle();
+        };
+    });
+
 
 </script>
